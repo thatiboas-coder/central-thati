@@ -345,101 +345,95 @@ select.ginp{cursor:pointer;appearance:auto;}
 
 <!-- ══ HOJE ══ -->
 <section class="section active" id="s-hoje">
-  <div class="eyebrow">Painel</div>
-  <div class="secline"></div>
-  <h1 class="sectitle" id="greeting-title">Bom dia, <em>Thati</em></h1>
-  <p class="secdesc" id="hoje-desc">carregando...</p>
+
+  <!-- CABEÇALHO -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.6px" id="hoje-eyebrow">Terça · 17 de junho</div>
+    <div style="font-size:26px;font-weight:700;color:var(--g9);letter-spacing:-.5px;margin-top:4px" id="hoje-greeting">Boa noite, Thati</div>
+  </div>
 
   <div class="g2">
-    <!-- COLUNA ESQUERDA: briefing do dia -->
+    <!-- COLUNA ESQUERDA -->
     <div>
 
-      <!-- MANHÃ -->
-      <div class="card" style="margin-bottom:12px">
-        <div class="ctitle" style="display:flex;align-items:center;gap:6px">
-          <span style="background:var(--al);color:var(--amb);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">MANHÃ</span>
-          <span style="color:var(--g5);font-size:10px;font-weight:400">checklist de hoje</span>
-        </div>
-        <div id="brief-manha"></div>
-      </div>
+      <!-- AMANHÃ — o que precisa acontecer -->
+      <div class="card" style="margin-bottom:12px;border-top:3px solid var(--blue)">
+        <div id="amanha-label" style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:14px;text-transform:uppercase;letter-spacing:.4px">Amanhã — quarta 18/06</div>
 
-      <!-- TARDE / NOITE -->
-      <div class="card" style="margin-bottom:12px" id="card-tarde">
-        <div class="ctitle" style="display:flex;align-items:center;gap:6px">
-          <span style="background:var(--bl);color:var(--blue);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">TARDE / NOITE</span>
+        <div style="font-size:10px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Manhã</div>
+        <div id="amanha-manha">
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Enviar msg Prevent Senior — glicemia pai<div class="ci-meta">antes de sair de casa</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Levar Malu — Ed. Física<div class="ci-meta">tênis + cabelo amarrado · 5h50</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Feira de uniforme na escola Malu<div class="ci-meta">10h às 14h · aproveitar que vai levar</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Ingresso festa junina — comprar ao deixar Malu<div class="ci-meta">R$50 Sympla ou presencial · 20/06</div></div></div>
         </div>
-        <div id="brief-tarde"></div>
-      </div>
 
-      <!-- ALERTAS DO DIA -->
-      <div id="alertas-hoje"></div>
+        <div style="font-size:10px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px">Trabalho</div>
+        <div id="amanha-trabalho">
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Checar meta PCD com time<div class="ci-meta">Daki · Cota PCDs</div></div></div>
+        </div>
+
+        <div style="font-size:10px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px">Tarde</div>
+        <div id="amanha-tarde">
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Terapia — 13h<div class="ci-meta">toda quarta · não agendar nada antes das 15h</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar presente Pedrinho<div class="ci-meta">aniversário sábado 20/06 · sem deixar pra última hora</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Garantir lanche Malu pra quinta<div class="ci-meta">ela fica com Ricardo · preparar antes</div></div></div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--g2)">
+          <input class="ainp" id="amanha-inp" placeholder="+ algo pra amanhã..." style="width:100%" onkeydown="if(event.key==='Enter')addAmanha()">
+        </div>
+      </div>
 
       <!-- BRAIN DUMP -->
       <div class="card">
-        <div class="ctitle">Captura rápida</div>
-        <div style="font-size:11px;color:var(--g5);margin-bottom:8px">Joga tudo aqui. Pasta de dente, msg da escola, presente, magnésio... Sem organizar.</div>
-        <textarea id="brain-dump" style="width:100%;padding:10px;border:1px solid var(--g3);border-radius:var(--r);font-size:13px;font-family:var(--sans);color:var(--g9);background:var(--g1);resize:none;outline:none;line-height:1.6;min-height:80px" placeholder="o que está na cabeça..."></textarea>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-          <span style="font-size:11px;color:var(--g5)">vai pro checklist de prioridades abaixo</span>
-          <button class="abtn" onclick="processarDump()">Guardar</button>
+        <div style="font-size:12px;font-weight:700;color:var(--g7);margin-bottom:8px">Captura rápida</div>
+        <div style="font-size:11px;color:var(--g5);margin-bottom:8px">Uma coisa por linha. Sem organizar — só tirar da cabeça.</div>
+        <textarea id="brain-dump" style="width:100%;padding:10px;border:1px solid var(--g3);border-radius:var(--r);font-size:13px;font-family:var(--sans);color:var(--g9);background:var(--g1);resize:none;outline:none;line-height:1.6;min-height:72px" placeholder="pasta de dente&#10;magnésio&#10;responder Monique..."></textarea>
+        <button class="abtn" style="margin-top:8px;width:100%" onclick="processarDump()">Guardar no radar</button>
+        <div id="dump-recentes" style="display:none;margin-top:10px">
+          <div style="font-size:10px;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Capturado ✓</div>
+          <div id="dump-lista" style="display:flex;flex-direction:column;gap:4px"></div>
         </div>
       </div>
+
     </div>
 
-    <!-- COLUNA DIREITA: prioridades + amanhã -->
+    <!-- COLUNA DIREITA -->
     <div>
 
-      <!-- AMANHÃ -->
-      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--blue)">
-        <div class="ctitle">Amanhã — prévia</div>
-        <div id="brief-amanha" style="font-size:13px;color:var(--g7);line-height:2"></div>
-      </div>
-
-      <!-- ALERTAS RECORRENTES / COMPRAS -->
-      <div class="card" style="margin-bottom:12px" id="card-alertas-compra">
-        <div class="ctitle">No radar agora</div>
-        <div id="radar-hoje"></div>
-      </div>
-
-      <!-- PRIORIDADES DA SEMANA -->
-      <div class="card">
-        <div class="ctitle">Prioridades da semana</div>
-        <div id="prio-list">
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Reembolso Amil — sessão atual<span class="badge b-r">SEXTA</span><div class="ci-meta">R$158 · app Amil toda sexta</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Confirmar festa junina + ingresso<span class="badge b-p">MALU</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">WhatsApp Prevent Senior — medições glicemia pai<span class="badge b-r">AMANHÃ</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar fantasia Malu<span class="badge b-r">URGENTE</span><div class="ci-meta">toda última sexta = dia da fantasia · Shopee/Shein</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar blusa manga longa furo no dedo — Malu<span class="badge b-p">MALU</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar acessório seleção Malu (jogo Brasil 19/06)<span class="badge b-r">URGENTE</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder mãe da amiga da Malu<span class="badge b-a">PEND</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Arrumar painel do carro<span class="badge b-a">CASA</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Mecânico — carro vazando óleo + troca de óleo<span class="badge b-r">URGENTE</span><div class="ci-meta">não deixar pra depois · vazamento pode travar o motor</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Presente Pedrinho<span class="badge b-r">URGENTE</span><div class="ci-meta">aniversário 20/06 sábado · já tem?</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar ingresso festa junina — você<span class="badge b-r">URGENTE</span><div class="ci-meta">R$50 Sympla · ou R$60 na portaria · 20/06 9h-20h</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Livro infantojuvenil — entrada grátis da Malu<span class="badge b-a">ANTES 20/06</span><div class="ci-meta">pode ser usado · doação na portaria</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder Monique<span class="badge b-a">PEND</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Confirmar festa junina + ingresso<span class="badge b-p">MALU</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Acessório seleção brasileira — Malu<span class="badge b-r">URGENTE</span><div class="ci-meta">jogo Brasil 19/06 · verificar o que precisa</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Blusa manga longa furo no dedo — Malu<span class="badge b-p">MALU</span><div class="ci-meta">Shopee/Shein · checar tamanho</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Fantasia — comprar pra última sexta do mês<span class="badge b-r">URGENTE</span><div class="ci-meta">toda última sexta = dia da fantasia na escola · Shopee/Shein</div></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">WhatsApp Prevent Senior — glicemia pai<span class="badge b-a">AMANHÃ</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder mãe da amiga da Malu<span class="badge b-a">PEND</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Reembolso Amil — sessão atual<span class="badge b-r">SEXTA</span><div class="ci-meta">R$158 · app Amil toda sexta</div></div></div>
+      <!-- ESTA SEMANA — por prazo, curto -->
+      <div class="card" style="margin-bottom:12px;border-top:3px solid var(--red)">
+        <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:14px;text-transform:uppercase;letter-spacing:.4px">Urgente esta semana</div>
+        <div id="urgente-list">
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Mecânico — vazando óleo + troca<div class="ci-meta">não deixar pra depois · pode travar o motor</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar ingresso festa junina<div class="ci-meta">R$50 Sympla · antes de amanhã</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Livro infantojuvenil — entrada Malu<div class="ci-meta">pode ser usado · doação na portaria 20/06</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Presente Pedrinho<div class="ci-meta">aniversário sábado 20/06</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Reembolso Amil<div class="ci-meta">toda sexta · R$158 · app Amil</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder Monique<div class="ci-meta">pendente</div></div></div>
         </div>
-        <div class="add-row" style="flex-wrap:wrap;gap:6px;margin-top:12px">
-          <input class="ainp" id="prio-inp" placeholder="+ prioridade..." style="flex:3;min-width:160px" onkeydown="if(event.key==='Enter')addPrio()">
-          <select class="ainp" id="prio-urg" style="max-width:130px;cursor:pointer">
-            <option value="b-r">🔴 Urgente</option>
-            <option value="b-a" selected>🟡 Essa semana</option>
-            <option value="b-g">🟢 Pode esperar</option>
-            <option value="b-p">🟣 Malu</option>
-          </select>
-          <button class="abtn" onclick="addPrio()">+</button>
+        <div style="margin-top:10px">
+          <input class="ainp" id="urgente-inp" placeholder="+ urgente..." style="width:100%" onkeydown="if(event.key==='Enter')addUrgente()">
+        </div>
+      </div>
+
+      <!-- NO RADAR — não urgente mas não esquecer -->
+      <div class="card">
+        <div style="font-size:13px;font-weight:700;color:var(--g7);margin-bottom:14px;text-transform:uppercase;letter-spacing:.4px">No radar</div>
+        <div id="radar-list">
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Arrumar painel do carro<div class="ci-meta">casa · sem prazo fixo</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Aula de teatro Malu — pesquisar turma</div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Aula de circo Malu — responder</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <input class="ainp" id="radar-inp" placeholder="+ no radar..." style="width:100%" onkeydown="if(event.key==='Enter')addRadar()">
         </div>
       </div>
 
     </div>
   </div>
+
 </section>
 
 <!-- ══ EVOLUÇÃO DIÁRIA ══ -->
@@ -2034,6 +2028,63 @@ function closeSidebar(){
   document.getElementById('sidebar-overlay').style.display='none';
 }
 
+// ── HOJE / AMANHÃ ──
+function renderHoje(){
+  const dia=ND.getDay();
+  const hora=ND.getHours();
+  const sauda=hora<12?'Bom dia':hora<18?'Boa tarde':'Boa noite';
+  const diasNomes=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  const g=document.getElementById('hoje-greeting');
+  const e=document.getElementById('hoje-eyebrow');
+  if(g) g.textContent=sauda+', Thati';
+  if(e) e.textContent=diasNomes[dia]+' · '+ND.getDate()+' de '+MESES[ND.getMonth()];
+  const amDia=new Date(ND);amDia.setDate(ND.getDate()+1);
+  const amLabel=document.getElementById('amanha-label');
+  if(amLabel) amLabel.textContent='Amanhã — '+diasNomes[amDia.getDay()].toLowerCase()+' '+amDia.getDate()+'/'+(amDia.getMonth()+1);
+}
+function addAmanha(){
+  const i=document.getElementById('amanha-inp');if(!i.value.trim())return;
+  const d=document.createElement('div');d.className='ci';d.onclick=function(){ck(this);};
+  d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${i.value.trim()}</div>`;
+  document.getElementById('amanha-tarde').appendChild(d);
+  i.value='';showToast('Adicionado!');
+}
+function addUrgente(){
+  const i=document.getElementById('urgente-inp');if(!i.value.trim())return;
+  const d=document.createElement('div');d.className='ci';d.onclick=function(){ck(this);};
+  d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${i.value.trim()}</div>`;
+  document.getElementById('urgente-list').appendChild(d);
+  i.value='';showToast('Adicionado!');
+}
+function addRadar(){
+  const i=document.getElementById('radar-inp');if(!i.value.trim())return;
+  const d=document.createElement('div');d.className='ci';d.onclick=function(){ck(this);};
+  d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${i.value.trim()}</div>`;
+  document.getElementById('radar-list').appendChild(d);
+  i.value='';showToast('Adicionado!');
+}
+function processarDump(){
+  const area=document.getElementById('brain-dump');
+  const txt=area.value.trim();if(!txt)return;
+  const lines=txt.split('\n').filter(l=>l.trim());
+  const list=document.getElementById('radar-list');
+  const dumpLista=document.getElementById('dump-lista');
+  const dumpRecentes=document.getElementById('dump-recentes');
+  lines.forEach(line=>{
+    const t=line.trim();
+    const d=document.createElement('div');d.className='ci';d.onclick=function(){ck(this);};
+    d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${t}<span class="badge b-b" style="margin-left:6px">DUMP</span></div>`;
+    if(list) list.appendChild(d);
+    const dr=document.createElement('div');
+    dr.style.cssText='padding:5px 8px;background:var(--gl);border-radius:5px;font-size:12px;color:var(--grn);margin-bottom:3px';
+    dr.textContent='✓ '+t;
+    if(dumpLista) dumpLista.appendChild(dr);
+  });
+  area.value='';
+  if(dumpRecentes) dumpRecentes.style.display='block';
+  showToast(lines.length+' item'+(lines.length>1?'s':'')+' no radar!');
+}
+
 // ── CALENDARIO ──
 let calYear=ND.getFullYear(),calMonth=ND.getMonth();
 let eventos=[];
@@ -2232,8 +2283,9 @@ if(window.__savedState){
   totalVar=5219;
   renderGastos();
 }
-restaurarPrios();
-renderBriefing();
+renderHoje();
+renderHoje();
+renderHoje();
 renderCal();
 </script>
 
