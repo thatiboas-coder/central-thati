@@ -1973,13 +1973,32 @@ function processarDump(){
   if(!txt) return;
   const lines=txt.split('\n').filter(l=>l.trim());
   const list=document.getElementById('prio-list');
+  const dumpLista=document.getElementById('dump-lista');
+  const dumpRecentes=document.getElementById('dump-recentes');
+
   lines.forEach(line=>{
+    const trimmed=line.trim();
+    // Add to prioridades
     const d=document.createElement('div');d.className='ci';d.onclick=function(){ck(this);};
-    d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${line.trim()}<span class="badge b-a" style="margin-left:6px">DUMP</span></div>`;
+    d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${trimmed}<span class="badge b-a" style="margin-left:6px">DUMP</span></div>`;
     if(list) list.appendChild(d);
+
+    // Show in dump-recentes
+    const dr=document.createElement('div');
+    dr.style.cssText='display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--g1);border-radius:6px;font-size:12px;color:var(--g7)';
+    dr.innerHTML=`<span style="color:var(--grn);font-weight:700">✓</span>${trimmed}`;
+    if(dumpLista) dumpLista.appendChild(dr);
   });
+
   area.value='';
-  showToast('Adicionado ao checklist!');
+  if(dumpRecentes) dumpRecentes.style.display='block';
+  showToast(lines.length+' item'+(lines.length>1?'s':'')+' capturado'+(lines.length>1?'s':'')+'!');
+
+  // Scroll to show dump-recentes
+  setTimeout(()=>{
+    const dr=document.getElementById('dump-recentes');
+    if(dr) dr.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },100);
 }
 
 
