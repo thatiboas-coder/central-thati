@@ -413,6 +413,8 @@ select.ginp{cursor:pointer;appearance:auto;}
           <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar acessório seleção Malu (jogo Brasil 19/06)<span class="badge b-r">URGENTE</span></div></div>
           <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder mãe da amiga da Malu<span class="badge b-a">PEND</span></div></div>
           <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Arrumar painel do carro<span class="badge b-a">CASA</span></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Presente Pedrinho<span class="badge b-r">URGENTE</span><div class="ci-meta">aniversário dia 20/06 · sábado</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder Monique<span class="badge b-a">PEND</span></div></div>
         </div>
         <div class="add-row" style="flex-wrap:wrap;gap:6px;margin-top:12px">
           <input class="ainp" id="prio-inp" placeholder="+ prioridade..." style="flex:3;min-width:160px" onkeydown="if(event.key==='Enter')addPrio()">
@@ -1992,6 +1994,7 @@ function processarDump(){
 
   area.value='';
   if(dumpRecentes) dumpRecentes.style.display='block';
+  salvarPrios();
   showToast(lines.length+' item'+(lines.length>1?'s':'')+' capturado'+(lines.length>1?'s':'')+'!');
 
   // Scroll to show dump-recentes
@@ -2218,6 +2221,7 @@ if(window.__savedState){
   totalVar=5219;
   renderGastos();
 }
+restaurarPrios();
 renderBriefing();
 renderCal();
 </script>
