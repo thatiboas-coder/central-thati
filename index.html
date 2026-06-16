@@ -246,10 +246,18 @@ body{font-family:var(--sans);background:var(--white);color:var(--g9);font-size:1
 select.ginp{cursor:pointer;appearance:auto;}
 
 @media(max-width:768px){
-  .sidebar{display:none;}
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease;position:fixed;top:0;bottom:0;left:0;width:260px;z-index:200;padding-top:0;}
+  .sidebar.open{transform:translateX(0);}
   .main{margin-left:0;padding:20px 14px 80px;}
-  .g2,.g3,.g4,.fg{grid-template-columns:1fr 1fr;}
+  .g2,.g3,.g4,.fg{grid-template-columns:1fr;}
+  .g2.keep-2{grid-template-columns:1fr 1fr;}
   .cal-grid{grid-template-columns:repeat(7,1fr);}
+  .hdr{padding-left:16px;}
+  .hamburger{display:flex!important;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--g3);border-radius:8px;background:var(--white);font-size:18px;cursor:pointer;color:var(--g7);}
+}
+@media(min-width:769px){
+  .hamburger{display:none!important;}
+  #sidebar-overlay{display:none!important;}
 }
 
 @media print {
@@ -265,6 +273,8 @@ select.ginp{cursor:pointer;appearance:auto;}
 </head>
 <body>
 
+<div id="sidebar-overlay" onclick="closeSidebar()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:199"></div>
+
 <!-- HEADER -->
 <div class="hdr">
   <div class="hdr-l">
@@ -273,6 +283,7 @@ select.ginp{cursor:pointer;appearance:auto;}
     <div class="hdr-date" id="hdr-date">Segunda, 15 jun 2026</div>
   </div>
   <div class="hdr-r">
+    <button class="hamburger" onclick="toggleSidebar()" id="hamburger-btn" style="display:none">☰</button>
     <span class="chip ch-b" id="chip-kcal">467/2000 kcal</span>
     <span class="chip ch-g" id="chip-prot">43g prot</span>
     <span class="chip ch-b" id="chip-saldo">Saldo: R$1.000</span>
@@ -285,38 +296,38 @@ select.ginp{cursor:pointer;appearance:auto;}
 <!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="nav-lbl">Hoje</div>
-  <div class="nav-item" onclick="go('s-hoje')"><div class="ndot" style="background:var(--blue)"></div>Painel do dia</div>
-  <div class="nav-item" onclick="go('s-evol')"><div class="ndot" style="background:var(--pur)"></div>Evolução diária</div>
-  <div class="nav-item" onclick="go('s-rotina')"><div class="ndot" style="background:var(--amb)"></div>Rotina semanal</div>
-  <div class="nav-item active" onclick="go('s-cal')"><div class="ndot" style="background:var(--pink)"></div>Calendário</div>
+  <div class="nav-item" onclick="go('s-hoje');closeSidebar()"><div class="ndot" style="background:var(--blue)"></div>Painel do dia</div>
+  <div class="nav-item" onclick="go('s-evol');closeSidebar()"><div class="ndot" style="background:var(--pur)"></div>Evolução diária</div>
+  <div class="nav-item" onclick="go('s-rotina');closeSidebar()"><div class="ndot" style="background:var(--amb)"></div>Rotina semanal</div>
+  <div class="nav-item active" onclick="go('s-cal');closeSidebar()"><div class="ndot" style="background:var(--pink)"></div>Calendário</div>
 
   <div class="nhr"></div>
   <div class="nav-lbl">Saúde</div>
-  <div class="nav-item" onclick="go('s-rem')"><div class="ndot" style="background:var(--pur)"></div>Remédios</div>
-  <div class="nav-item" onclick="go('s-prot')"><div class="ndot" style="background:var(--pur)"></div>Protocolo hormonal</div>
+  <div class="nav-item" onclick="go('s-rem');closeSidebar()"><div class="ndot" style="background:var(--pur)"></div>Remédios</div>
+  <div class="nav-item" onclick="go('s-prot');closeSidebar()"><div class="ndot" style="background:var(--pur)"></div>Protocolo hormonal</div>
 
   <div class="nhr"></div>
   <div class="nav-lbl">Alimentação</div>
-  <div class="nav-item" onclick="go('s-comida')"><div class="ndot" style="background:var(--grn)"></div>Registrar refeição</div>
-  <div class="nav-item" onclick="go('s-compra')"><div class="ndot" style="background:var(--grn)"></div>Lista de compras</div>
+  <div class="nav-item" onclick="go('s-comida');closeSidebar()"><div class="ndot" style="background:var(--grn)"></div>Registrar refeição</div>
+  <div class="nav-item" onclick="go('s-compra');closeSidebar()"><div class="ndot" style="background:var(--grn)"></div>Lista de compras</div>
 
   <div class="nhr"></div>
   <div class="nav-lbl">Financeiro</div>
-  <div class="nav-item" onclick="go('s-fin')"><div class="ndot" style="background:var(--amb)"></div>Gastos do mês</div>
-  <div class="nav-item" onclick="go('s-fixos')"><div class="ndot" style="background:var(--amb)"></div>Contas fixas</div>
-  <div class="nav-item" onclick="go('s-reemb')"><div class="ndot" style="background:var(--red)"></div>Reembolsos</div>
+  <div class="nav-item" onclick="go('s-fin');closeSidebar()"><div class="ndot" style="background:var(--amb)"></div>Gastos do mês</div>
+  <div class="nav-item" onclick="go('s-fixos');closeSidebar()"><div class="ndot" style="background:var(--amb)"></div>Contas fixas</div>
+  <div class="nav-item" onclick="go('s-reemb');closeSidebar()"><div class="ndot" style="background:var(--red)"></div>Reembolsos</div>
 
   <div class="nhr"></div>
   <div class="nav-lbl">Trabalho</div>
-  <div class="nav-item" onclick="go('s-trabalho')"><div class="ndot" style="background:var(--pur)"></div>Daki · R&amp;S</div>
+  <div class="nav-item" onclick="go('s-trabalho');closeSidebar()"><div class="ndot" style="background:var(--pur)"></div>Daki · R&amp;S</div>
 
   <div class="nhr"></div>
   <div class="nav-lbl">Projetos</div>
-  <div class="nav-item" onclick="go('s-projeto')"><div class="ndot" style="background:var(--pink)"></div>Projeto Capacitação</div>
+  <div class="nav-item" onclick="go('s-projeto');closeSidebar()"><div class="ndot" style="background:var(--pink)"></div>Projeto Capacitação</div>
 
   <div class="nhr"></div>
   <div class="nav-lbl">Malu</div>
-  <div class="nav-item" onclick="go('s-malu')"><div class="ndot" style="background:var(--bm)"></div>Tudo sobre a Malu</div>
+  <div class="nav-item" onclick="go('s-malu');closeSidebar()"><div class="ndot" style="background:var(--bm)"></div>Tudo sobre a Malu</div>
 </nav>
 
 <!-- MAIN -->
@@ -1959,6 +1970,20 @@ function processarDump(){
   });
   area.value='';
   showToast('Adicionado ao checklist!');
+}
+
+
+// ── MOBILE SIDEBAR ──
+function toggleSidebar(){
+  const sb=document.querySelector('.sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  const isOpen=sb.classList.contains('open');
+  sb.classList.toggle('open');
+  ov.style.display=isOpen?'none':'block';
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').style.display='none';
 }
 
 // ── CALENDARIO ──
