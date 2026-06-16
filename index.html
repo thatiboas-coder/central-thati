@@ -246,19 +246,29 @@ body{font-family:var(--sans);background:var(--white);color:var(--g9);font-size:1
 select.ginp{cursor:pointer;appearance:auto;}
 
 @media(max-width:768px){
-  .sidebar{transform:translateX(-100%);transition:transform .25s ease;position:fixed;top:0;bottom:0;left:0;width:260px;z-index:200;padding-top:0;}
-  .sidebar.open{transform:translateX(0);}
-  .main{margin-left:0;padding:20px 14px 80px;}
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease;position:fixed;top:0;bottom:0;left:0;width:75vw;max-width:280px;z-index:200;padding-top:52px;}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 20px rgba(0,0,0,.15);}
+  .main{margin-left:0;padding:20px 16px 100px;}
   .g2,.g3,.g4,.fg{grid-template-columns:1fr;}
   .g2.keep-2{grid-template-columns:1fr 1fr;}
   .cal-grid{grid-template-columns:repeat(7,1fr);}
-  .hdr{padding-left:16px;}
-  .hamburger{display:flex!important;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--g3);border-radius:8px;background:var(--white);font-size:18px;cursor:pointer;color:var(--g7);}
+  .hdr{padding-left:16px;padding-right:16px;}
+  .hamburger{display:flex!important;align-items:center;justify-content:center;width:36px;height:36px;border:1.5px solid var(--g3);border-radius:8px;background:var(--white);font-size:20px;cursor:pointer;color:var(--g7);flex-shrink:0;}
+  /* bottom nav for quick access */
+  .bottom-nav{display:flex!important;}
 }
 @media(min-width:769px){
   .hamburger{display:none!important;}
   #sidebar-overlay{display:none!important;}
+  .bottom-nav{display:none!important;}
 }
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--g3);z-index:300;padding:6px 0 max(6px,env(safe-area-inset-bottom));}
+.bottom-nav-items{display:flex;justify-content:space-around;align-items:center;}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;cursor:pointer;border-radius:8px;min-width:52px;}
+.bn-item.active{background:var(--bl);color:var(--blue);}
+.bn-icon{font-size:20px;line-height:1;}
+.bn-label{font-size:9px;font-weight:600;color:var(--g5);text-transform:uppercase;letter-spacing:.3px;}
+.bn-item.active .bn-label{color:var(--blue);}
 
 @media print {
   .sidebar { display: none !important; }
@@ -1974,6 +1984,11 @@ function processarDump(){
 
 
 // ── MOBILE SIDEBAR ──
+function setBn(id){
+  document.querySelectorAll('.bn-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el) el.classList.add('active');
+}
 function toggleSidebar(){
   const sb=document.querySelector('.sidebar');
   const ov=document.getElementById('sidebar-overlay');
@@ -2167,8 +2182,6 @@ if(window.__savedState){
   eventos.push({desc:'📋 Relatório escolar Malu disponível no app',day:24,month:5,year:2026,cor:'ce-amb'});
   eventos.push({desc:'🏫 Reunião c/ educadora Malu - 1º ano: 8h-9h (sem agendamento)',day:25,month:5,year:2026,cor:'ce-amb'});
   // Terapia - toda quarta 13h
-  eventos.push({desc:'🧠 Terapia - 13h',day:18,month:5,year:2026,cor:'ce-pur',recorrente:'quarta'});
-  eventos.push({desc:'🧠 Terapia - 13h',day:25,month:5,year:2026,cor:'ce-pur'});
   // Esta semana
   eventos.push({desc:'📞 Teleconsulta nutricionista pai - 15h30',day:18,month:5,year:2026,cor:'ce-red'});
   eventos.push({desc:'⚠️ Lembrete: exame glicemia pai',day:19,month:5,year:2026,cor:'ce-red'});
@@ -2189,5 +2202,26 @@ if(window.__savedState){
 renderBriefing();
 renderCal();
 </script>
+
+<!-- BOTTOM NAV (mobile) -->
+<div class="bottom-nav">
+  <div class="bottom-nav-items">
+    <div class="bn-item active" id="bn-hoje" onclick="go('s-hoje');setBn('bn-hoje')">
+      <div class="bn-icon">☀️</div><div class="bn-label">Hoje</div>
+    </div>
+    <div class="bn-item" id="bn-malu" onclick="go('s-malu');setBn('bn-malu')">
+      <div class="bn-icon">👧</div><div class="bn-label">Malu</div>
+    </div>
+    <div class="bn-item" id="bn-fin" onclick="go('s-fin');setBn('bn-fin')">
+      <div class="bn-icon">💰</div><div class="bn-label">Gastos</div>
+    </div>
+    <div class="bn-item" id="bn-rem" onclick="go('s-rem');setBn('bn-rem')">
+      <div class="bn-icon">💊</div><div class="bn-label">Remédios</div>
+    </div>
+    <div class="bn-item" id="bn-menu" onclick="toggleSidebar()">
+      <div class="bn-icon">☰</div><div class="bn-label">Menu</div>
+    </div>
+  </div>
+</div>
 
 </body></html>
