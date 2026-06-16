@@ -323,99 +323,89 @@ select.ginp{cursor:pointer;appearance:auto;}
 <main class="main">
 
 <!-- ══ HOJE ══ -->
-<section class="section" id="s-hoje">
+<section class="section active" id="s-hoje">
   <div class="eyebrow">Painel</div>
   <div class="secline"></div>
-  <h1 class="sectitle">Bom dia, <em>Thati</em></h1>
-  <p class="secdesc" id="hoje-desc">Segunda · 15 de jun de 2026</p>
+  <h1 class="sectitle" id="greeting-title">Bom dia, <em>Thati</em></h1>
+  <p class="secdesc" id="hoje-desc">carregando...</p>
 
-  <!-- Brain dump -->
-  <div class="card" style="margin-bottom:16px">
-    <div class="ctitle">Captura rápida — tira da cabeça</div>
-    <textarea id="brain-dump" style="width:100%;padding:10px;border:1px solid var(--g3);border-radius:var(--r);font-size:13px;font-family:var(--sans);color:var(--g9);background:var(--g1);resize:none;outline:none;line-height:1.6;min-height:72px" placeholder="Pasta de dente, magnésio, msg escola, presente aniversário... Joga tudo aqui sem organizar." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();processarDump();}"></textarea>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-      <span style="font-size:11px;color:var(--g5)">Enter para salvar · vai pro checklist abaixo</span>
-      <button class="abtn" onclick="processarDump()">Guardar</button>
-    </div>
-  </div>
+  <div class="g2">
+    <!-- COLUNA ESQUERDA: briefing do dia -->
+    <div>
 
-  <!-- Card Malu hoje -->
-  <div class="card" style="margin-bottom:16px" id="card-malu-hoje">
-    <div class="ctitle">Malu hoje — <span id="malu-dia-label" style="color:var(--blue);text-transform:none;font-weight:600">segunda</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="font-size:13px;color:var(--g7);line-height:2" id="malu-logistica">
-        <div><strong>Leva:</strong> Thati — 5h50</div>
-        <div><strong>Busca:</strong> Marcia</div>
-        <div><strong>Dorme:</strong> Avó</div>
+      <!-- MANHÃ -->
+      <div class="card" style="margin-bottom:12px">
+        <div class="ctitle" style="display:flex;align-items:center;gap:6px">
+          <span style="background:var(--al);color:var(--amb);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">MANHÃ</span>
+          <span style="color:var(--g5);font-size:10px;font-weight:400">checklist de hoje</span>
+        </div>
+        <div id="brief-manha"></div>
       </div>
-      <div>
-        <div style="font-size:11px;color:var(--g5);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;font-weight:600">Compromissos</div>
-        <div id="malu-compromissos" style="font-size:12px;color:var(--g7);line-height:1.8">
-          <div>Budesonida 8h + 20h</div>
-          <div>Lavagem nasal pós-escola</div>
+
+      <!-- TARDE / NOITE -->
+      <div class="card" style="margin-bottom:12px" id="card-tarde">
+        <div class="ctitle" style="display:flex;align-items:center;gap:6px">
+          <span style="background:var(--bl);color:var(--blue);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">TARDE / NOITE</span>
+        </div>
+        <div id="brief-tarde"></div>
+      </div>
+
+      <!-- ALERTAS DO DIA -->
+      <div id="alertas-hoje"></div>
+
+      <!-- BRAIN DUMP -->
+      <div class="card">
+        <div class="ctitle">Captura rápida</div>
+        <div style="font-size:11px;color:var(--g5);margin-bottom:8px">Joga tudo aqui. Pasta de dente, msg da escola, presente, magnésio... Sem organizar.</div>
+        <textarea id="brain-dump" style="width:100%;padding:10px;border:1px solid var(--g3);border-radius:var(--r);font-size:13px;font-family:var(--sans);color:var(--g9);background:var(--g1);resize:none;outline:none;line-height:1.6;min-height:80px" placeholder="o que está na cabeça..."></textarea>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+          <span style="font-size:11px;color:var(--g5)">vai pro checklist de prioridades abaixo</span>
+          <button class="abtn" onclick="processarDump()">Guardar</button>
         </div>
       </div>
     </div>
-    <div id="malu-alert-hoje" style="display:none;margin-top:10px;padding:8px 12px;background:var(--rl);border-radius:6px;font-size:12px;color:var(--red)"></div>
-  </div>
 
-  <div class="g2">
+    <!-- COLUNA DIREITA: prioridades + amanhã -->
     <div>
-      <div class="card">
-        <div class="ctitle">Macros do dia</div>
-        <div class="pw"><div class="pl2"><span>Calorias</span><span id="ph-kcal">467/2000</span></div><div class="pt"><div class="pf" id="pf-kcal" style="width: 23%; background: var(--blue);"></div></div></div>
-        <div class="pw"><div class="pl2"><span>Proteína</span><span id="ph-prot">43/150g</span></div><div class="pt"><div class="pf" id="pf-prot" style="width: 29%; background: var(--grn);"></div></div></div>
-        <div class="pw"><div class="pl2"><span>Carboidrato</span><span id="ph-carb">59/200g</span></div><div class="pt"><div class="pf" id="pf-carb" style="width: 29%; background: var(--amb);"></div></div></div>
-        <div class="pw" style="margin-bottom:0"><div class="pl2"><span>Gordura</span><span id="ph-gord">9/60g</span></div><div class="pt"><div class="pf" id="pf-gord" style="width: 15%; background: var(--pur);"></div></div></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--g5)">→ Registre em <strong>Alimentação</strong></div>
+
+      <!-- AMANHÃ -->
+      <div class="card" style="margin-bottom:12px;border-left:3px solid var(--blue)">
+        <div class="ctitle">Amanhã — prévia</div>
+        <div id="brief-amanha" style="font-size:13px;color:var(--g7);line-height:2"></div>
       </div>
-    </div>
-    <div>
+
+      <!-- ALERTAS RECORRENTES / COMPRAS -->
+      <div class="card" style="margin-bottom:12px" id="card-alertas-compra">
+        <div class="ctitle">No radar agora</div>
+        <div id="radar-hoje"></div>
+      </div>
+
+      <!-- PRIORIDADES DA SEMANA -->
       <div class="card">
         <div class="ctitle">Prioridades da semana</div>
         <div id="prio-list">
-          <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Reembolso Amil — sessão atual<span class="badge b-r">HOJE</span><div class="ci-meta">R$158 · app Amil</div></div></div>
-          <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder mãe da amiga da Malu<span class="badge b-a">PEND</span></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Reembolso Amil — sessão atual<span class="badge b-r">SEXTA</span><div class="ci-meta">R$158 · app Amil toda sexta</div></div></div>
           <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Confirmar festa junina + ingresso<span class="badge b-p">MALU</span></div></div>
-          <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder aula de circo<span class="badge b-p">MALU</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Resgatar senha Prevent Senior (mãe)<span class="badge b-b">EU</span></div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Agendar retorno nutri Felipe</div></div>
-          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Marcar unha (combinar manicure em casa)</div></div>
-        <div class="ci"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Incluir no planner - trabalho<span class="badge b-r" style="margin-left:6px">Urgente</span><span class="badge b-g" style="margin-left:4px">até 15/06</span><div class="ci-meta">prazo: 15/06</div></div></div></div>
-        <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar capa de chuva — Malu<span class="badge b-p">MALU</span></div></div>
-      
-      <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar fantasia Malu — perdeu a última<span class="badge b-r">URGENTE</span><div class="ci-meta">Toda última sexta do mês ela usa fantasia na escola</div></div></div>
-      <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">WhatsApp Prevent Senior — medições de glicemia do pai<span class="badge b-r">AMANHÃ 16/06</span><div class="ci-meta">Mandar as medições por WhatsApp para o plano</div></div></div>
-      <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar blusa manga longa com furo no dedo para Malu<span class="badge b-p">MALU</span><div class="ci-meta">Igual à da academia · Shopee/Shein</div></div></div>
-      <div class="add-row" style="flex-wrap:wrap;gap:6px;margin-top:12px">
-      <input class="ainp" id="prio-inp" placeholder="+ prioridade..." style="flex:3;min-width:160px" onkeydown="if(event.key==='Enter')addPrio()">
-      <select class="ainp" id="prio-urg" style="max-width:130px;cursor:pointer">
-        <option value="b-r">🔴 Urgente</option>
-        <option value="b-a" selected="">🟡 Essa semana</option>
-        <option value="b-g">🟢 Pode esperar</option>
-        <option value="b-b">🔵 Malu</option>
-        <option value="b-p">🟣 Eu</option>
-      </select>
-      <input class="ainp" id="prio-dl" type="date" style="max-width:130px" title="Prazo">
-      <button class="abtn" onclick="addPrio()">+</button>
-    </div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">WhatsApp Prevent Senior — medições glicemia pai<span class="badge b-r">AMANHÃ</span></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar fantasia Malu<span class="badge b-r">URGENTE</span><div class="ci-meta">toda última sexta = dia da fantasia · Shopee/Shein</div></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar blusa manga longa furo no dedo — Malu<span class="badge b-p">MALU</span></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar acessório seleção Malu (jogo Brasil 19/06)<span class="badge b-r">URGENTE</span></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Responder mãe da amiga da Malu<span class="badge b-a">PEND</span></div></div>
+          <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Arrumar painel do carro<span class="badge b-a">CASA</span></div></div>
+        </div>
+        <div class="add-row" style="flex-wrap:wrap;gap:6px;margin-top:12px">
+          <input class="ainp" id="prio-inp" placeholder="+ prioridade..." style="flex:3;min-width:160px" onkeydown="if(event.key==='Enter')addPrio()">
+          <select class="ainp" id="prio-urg" style="max-width:130px;cursor:pointer">
+            <option value="b-r">🔴 Urgente</option>
+            <option value="b-a" selected>🟡 Essa semana</option>
+            <option value="b-g">🟢 Pode esperar</option>
+            <option value="b-p">🟣 Malu</option>
+          </select>
+          <button class="abtn" onclick="addPrio()">+</button>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="ctitle">Backlog — arrastou da semana passada</div>
-    <div id="back-list">
-      <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Verificar reembolsos Amil anteriores em aberto</div></div>
-      <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Magnésio + probiótico — comprar</div></div>
-      <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Whey — comprar</div></div>
-      <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Soro fisiológico — comprar URGENTE</div></div>
     </div>
-    <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Arrumar painel do carro<span class="badge b-a">CASA</span></div></div>
-      <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">WhatsApp tio Beto — boa sorte no 1º dia de quimioterapia<span class="badge b-r">HOJE</span><div class="ci-meta">EUA · primeiro dia de quimio</div></div></div>
-      <div class="ci" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">🇧🇷 Comprar acessório seleção para Malu<span class="badge b-r">HOJE</span><div class="ci-meta">Sexta 19/06 — jogo Seleção Brasileira · meinha, bandeirinha, faixa etc</div></div></div>
-      <div class="ci done" onclick="ck(this)"><div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">Comprar Isofort Beauty sachês (15un)<span class="badge b-g">COMPRA PLANEJADA</span><div class="ci-meta">R$185 · 1 sachê/semana para o escritório · evita transferir do pote · R$12,33/dose</div></div></div>
-      <div class="add-row"><input class="ainp" id="back-inp" placeholder="+ backlog..." onkeydown="if(event.key==='Enter')addBack()"><button class="abtn" onclick="addBack()">+</button></div>
   </div>
 </section>
 
@@ -1729,6 +1719,248 @@ function renderMaluHoje(){
   else if(alert){alert.style.display='none';}
 }
 
+
+// ══ BRIEFING DIÁRIO AUTOMÁTICO ══
+const DIAS_FULL = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+
+// Protocolo fixo por dia da semana
+const PROTOCOLO = {
+  // cada dia tem: manha[], tarde[], alertas[], amanha_preview (texto do DIA SEGUINTE)
+  0: { // Domingo
+    manha: [
+      {txt:'Preparar uniforme Malu — lavar e passar',tag:'b-p','meta':'deixar no lugar certo'},
+      {txt:'Mochila Malu — roupa extra, repelente, protetor',tag:'b-p'},
+      {txt:'Remédios Malu — separar na caixinha da semana',tag:'b-p'},
+      {txt:'Kit café da manhã — montar na geladeira',tag:'b-g'},
+      {txt:'Pedido de mercado — lista fixa via app',tag:'b-g'},
+      {txt:'Revisar calendário da semana (15 min)',tag:'b-b'},
+      {txt:'Briefing Marcia — mensagem com a semana dela',tag:'b-b'},
+    ],
+    tarde: [
+      {txt:'Cozinhar para seg/ter/qua — prep dominical',tag:'b-a','meta':'frango, arroz, legumes'},
+    ],
+    alertas: [],
+    amanha:'Segunda: Academia 5h · Malu leva Thati 5h50 · Ed. Física (tênis + cabelo amarrado)'
+  },
+  1: { // Segunda
+    manha: [
+      {txt:'Acordar 5h30 — se arrumar, acordar Malu',tag:'b-r'},
+      {txt:'Café da manhã Malu',tag:'b-p'},
+      {txt:'Budesonida — dose manhã (Malu)',tag:'b-p','meta':'spray nasal'},
+      {txt:'Malu: Ed. Física hoje — tênis + cabelo amarrado',tag:'b-p','meta':'verificar na mochila'},
+      {txt:'Seus remédios — Venvanse + Puran + Simfort + Hemogenin',tag:'b-r','meta':'em jejum'},
+      {txt:'Uniforme + mochila → levar na escola',tag:'b-p'},
+      {txt:'Checar combustível',tag:'b-a'},
+    ],
+    tarde: [
+      {txt:'Checar app escola (slot 12h)',tag:'b-b'},
+      {txt:'Academia — treino',tag:'b-g'},
+      {txt:'Preparar casa para Marcia',tag:'b-a','meta':'brinquedos, louça, pia, roupa máquina'},
+      {txt:'Garantir uniforme na casa da avó — Malu dorme lá',tag:'b-p'},
+      {txt:'Montar lanches para presencial terça',tag:'b-a'},
+      {txt:'Janta pronta para terça',tag:'b-a','meta':'chega morrendo de fome'},
+    ],
+    alertas: [],
+    amanha:'Terça: PRESENCIAL · Academia 4h15 · Sair 8h30 · Bag: whey + frutas + pão · Lixo'
+  },
+  2: { // Terça
+    manha: [
+      {txt:'Acordar 4h15',tag:'b-r'},
+      {txt:'Seus remédios — Venvanse + Puran + Simfort + Hemogenin',tag:'b-r','meta':'em jejum'},
+      {txt:'Academia 5h — treino pernas (A)',tag:'b-g'},
+      {txt:'Bag presencial: whey, frutas, pão',tag:'b-a'},
+      {txt:'Sair de casa 8h30',tag:'b-r'},
+      {txt:'Tirar o lixo',tag:'b-a'},
+    ],
+    tarde: [
+      {txt:'Buscar Malu (se Ricardo não buscou)',tag:'b-p'},
+      {txt:'Rotina Malu — janta · banho · dormir',tag:'b-p'},
+    ],
+    alertas: [],
+    amanha:'Quarta: Academia · Malu leva Thati 5h50 · Ed. Física (tênis + cabelo) · TERAPIA 13h'
+  },
+  3: { // Quarta
+    manha: [
+      {txt:'Acordar 5h30 — acordar Malu',tag:'b-r'},
+      {txt:'Café da manhã Malu',tag:'b-p'},
+      {txt:'Budesonida — dose manhã (Malu)',tag:'b-p','meta':'spray nasal'},
+      {txt:'Malu: Ed. Física hoje — tênis + cabelo amarrado',tag:'b-p','meta':'verificar na mochila'},
+      {txt:'Seus remédios — Venvanse + Puran + Simfort + Hemogenin',tag:'b-r','meta':'em jejum'},
+      {txt:'Uniforme + mochila → levar na escola',tag:'b-p'},
+    ],
+    tarde: [
+      {txt:'TERAPIA — 13h',tag:'b-r','meta':'toda quarta · não esquecer'},
+      {txt:'Checar app escola (slot 12h)',tag:'b-b'},
+      {txt:'Academia — treino',tag:'b-g'},
+      {txt:'Noite: cozinhar para qui/sex/sab',tag:'b-a','meta':'Malu na avó — boa hora pra meal prep'},
+      {txt:'Garantir uniforme para amanhã na avó',tag:'b-p'},
+    ],
+    alertas: [{tipo:'b-b',txt:'Terapia 13h hoje — não agendar nada no mesmo horário'}],
+    amanha:'Quinta: Malu leva Marcia · Ricardo busca (~75%) · JANTA PRONTA pra Malu · Lixo'
+  },
+  4: { // Quinta
+    manha: [
+      {txt:'Seus remédios — Venvanse + Puran + Simfort + Hemogenin',tag:'b-r','meta':'em jejum'},
+      {txt:'Verificar rodízio do carro — placa de hoje',tag:'b-a','meta':'toda quinta'},
+      {txt:'Checar combustível',tag:'b-a'},
+    ],
+    tarde: [
+      {txt:'JANTA PRONTA para Malu — antes das 18h',tag:'b-r','meta':'ela chega com fome, não pode faltar'},
+      {txt:'Academia (quando não for presencial)',tag:'b-g'},
+      {txt:'Buscar Malu — ou confirmar Ricardo (~75%)',tag:'b-p'},
+      {txt:'Tirar o lixo',tag:'b-a'},
+      {txt:'Rotina Malu — janta · banho · dormir',tag:'b-p'},
+    ],
+    alertas: [{tipo:'b-r',txt:'Janta Malu tem que estar pronta — ela chega com fome'}],
+    amanha:'Sexta: Reembolso Amil (R$158 · app) · Alinhar busca Malu com Ricardo · brinquedo na mochila'
+  },
+  5: { // Sexta
+    manha: [
+      {txt:'Seus remédios — Venvanse + Puran + Simfort + Hemogenin',tag:'b-r','meta':'em jejum'},
+      {txt:'BRINQUEDO na mochila da Malu',tag:'b-r','meta':'toda sexta · obrigatório'},
+      {txt:'Levar Malu na escola',tag:'b-p'},
+    ],
+    tarde: [
+      {txt:'REEMBOLSO AMIL — fazer hoje',tag:'b-r','meta':'app Amil · nota da sessão · R$158'},
+      {txt:'Alinhar com Ricardo: quem busca Malu hoje',tag:'b-p'},
+      {txt:'Academia — treino',tag:'b-g'},
+      {txt:'Garantir programação com Malu para o fds',tag:'b-p','meta':'parque, cinema, casa de amiga'},
+    ],
+    alertas: [
+      {tipo:'b-r',txt:'Reembolso Amil toda sexta — R$158 por sessão'},
+      {tipo:'b-p',txt:'Brinquedo na mochila da Malu — toda sexta'},
+    ],
+    amanha:'Sábado: com a Malu · programação a combinar'
+  },
+  6: { // Sábado
+    manha: [
+      {txt:'Seus remédios — Venvanse + Puran + Simfort + Hemogenin',tag:'b-r','meta':'em jejum'},
+      {txt:'Programação Malu (editar conforme o sábado)',tag:'b-p'},
+    ],
+    tarde: [
+      {txt:'Almoço em casa',tag:'b-g'},
+      {txt:'Noite: pizza ou comer fora',tag:'b-g'},
+    ],
+    alertas: [],
+    amanha:'Domingo: preparação da semana · uniforme Malu · mercado · briefing Marcia'
+  }
+};
+
+// Verificar última sexta do mês
+function isUltimasSexta(){
+  const d=new Date(ND.getFullYear(),ND.getMonth(),ND.getDate());
+  const proxSex=new Date(d);
+  proxSex.setDate(d.getDate()+7);
+  return proxSex.getMonth()!==d.getMonth();
+}
+
+// Radar de alertas recorrentes
+function buildRadar(){
+  const items=[];
+  const dia=ND.getDate();
+  const mes=ND.getMonth();
+
+  // Magnésio acaba ~18/07
+  if(mes===6&&dia>=10&&dia<=18) items.push({tag:'b-r',txt:'Magnésio bisglicinato — comprar até dia 18/07 · acaba em breve'});
+  // Simfort comprar 01/08
+  if(mes===6&&dia>=25) items.push({tag:'b-a',txt:'Simfort — comprar em 01/08 · acaba 14/08'});
+  if(mes===7&&dia<=14) items.push({tag:'b-r',txt:'Simfort — comprar agora · acaba 14/08'});
+  // Ração Petz
+  if(mes===7&&dia>=20) items.push({tag:'b-a',txt:'Ração Petz — cobrança em 27/08 · R$525 · entrega 03/09'});
+  // Reembolso Amil sempre visível
+  if(ND.getDay()===5) items.push({tag:'b-r',txt:'Reembolso Amil — fazer hoje · R$158 · app Amil'});
+  // Plano de saúde em atraso
+  items.push({tag:'b-r',txt:'Plano de saúde (você + Malu) — verificar atraso'});
+  // Estacionamento 
+  if(ND.getDay()===2||ND.getDay()===4) items.push({tag:'b-a',txt:'Estacionamento trabalho — R$55 (se presencial)'});
+
+  return items;
+}
+
+function renderBriefing(){
+  const dia=ND.getDay();
+  const proto=PROTOCOLO[dia];
+  const diasNomes=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+
+  // Saudação
+  const hora=ND.getHours();
+  const sauda=hora<12?'Bom dia':hora<18?'Boa tarde':'Boa noite';
+  const title=document.getElementById('greeting-title');
+  if(title) title.innerHTML=sauda+', <em>Thati</em>';
+  const desc=document.getElementById('hoje-desc');
+  if(desc) desc.textContent=diasNomes[dia]+' · '+ND.getDate()+' de '+MESES[ND.getMonth()]+' de '+ND.getFullYear();
+
+  // Última sexta do mês?
+  const extras=[];
+  if(dia===5&&isUltimasSexta()) extras.push({txt:'FANTASIA na mochila da Malu — última sexta do mês',tag:'b-r',meta:'toda última sexta = dia da fantasia na escola'});
+
+  // Manhã
+  const manha=document.getElementById('brief-manha');
+  if(manha){
+    const items=[...proto.manha,...extras];
+    manha.innerHTML=items.map(it=>`
+      <div class="ci" onclick="ck(this)">
+        <div class="cbox"><span class="ctick">✓</span></div>
+        <div class="ci-lbl">${it.txt}<span class="badge ${it.tag}" style="margin-left:6px">${it.tag==='b-r'?'AGORA':it.tag==='b-p'?'MALU':it.tag==='b-a'?'HOJE':'OK'}</span>
+        ${it.meta?'<div class="ci-meta">'+it.meta+'</div>':''}
+        </div>
+      </div>`).join('');
+  }
+
+  // Tarde/noite
+  const tarde=document.getElementById('brief-tarde');
+  if(tarde){
+    tarde.innerHTML=proto.tarde.length?proto.tarde.map(it=>`
+      <div class="ci" onclick="ck(this)">
+        <div class="cbox"><span class="ctick">✓</span></div>
+        <div class="ci-lbl">${it.txt}<span class="badge ${it.tag}" style="margin-left:6px">${it.tag==='b-r'?'IMPORTANTE':it.tag==='b-p'?'MALU':it.tag==='b-a'?'TARDE':'OK'}</span>
+        ${it.meta?'<div class="ci-meta">'+it.meta+'</div>':''}
+        </div>
+      </div>`).join(''):'<div style="font-size:12px;color:var(--g5);padding:8px 0">Tarde tranquila hoje.</div>';
+  }
+
+  // Alertas do dia
+  const alertasEl=document.getElementById('alertas-hoje');
+  if(alertasEl&&proto.alertas.length){
+    alertasEl.innerHTML=proto.alertas.map(a=>`
+      <div class="alert ${a.tipo==='b-r'?'red':'blue'}" style="margin-bottom:10px">
+        <div class="alert-icon">${a.tipo==='b-r'?'🔴':'📌'}</div>
+        <p>${a.txt}</p>
+      </div>`).join('');
+  }
+
+  // Amanhã
+  const amanha=document.getElementById('brief-amanha');
+  if(amanha) amanha.innerHTML='<div style="font-size:13px;color:var(--g7);line-height:1.8">'+proto.amanha+'</div>';
+
+  // Radar
+  const radar=document.getElementById('radar-hoje');
+  if(radar){
+    const items=buildRadar();
+    radar.innerHTML=items.length?items.map(it=>`
+      <div class="ci" onclick="ck(this)">
+        <div class="cbox"><span class="ctick">✓</span></div>
+        <div class="ci-lbl">${it.txt}<span class="badge ${it.tag}" style="margin-left:6px">RADAR</span></div>
+      </div>`).join(''):'<div style="font-size:12px;color:var(--g5);padding:8px 0">Nada crítico no radar.</div>';
+  }
+}
+
+// ── BRAIN DUMP ──
+function processarDump(){
+  const area=document.getElementById('brain-dump');
+  const txt=area.value.trim();
+  if(!txt) return;
+  const lines=txt.split('\n').filter(l=>l.trim());
+  const list=document.getElementById('prio-list');
+  lines.forEach(line=>{
+    const d=document.createElement('div');d.className='ci';d.onclick=function(){ck(this);};
+    d.innerHTML=`<div class="cbox"><span class="ctick">✓</span></div><div class="ci-lbl">${line.trim()}<span class="badge b-a" style="margin-left:6px">DUMP</span></div>`;
+    if(list) list.appendChild(d);
+  });
+  area.value='';
+  showToast('Adicionado ao checklist!');
+}
+
 // ── CALENDARIO ──
 let calYear=ND.getFullYear(),calMonth=ND.getMonth();
 let eventos=[];
@@ -1929,8 +2161,8 @@ if(window.__savedState){
   totalVar=5219;
   renderGastos();
 }
+renderBriefing();
 renderCal();
-renderMaluHoje();
 </script>
 
 </body></html>
